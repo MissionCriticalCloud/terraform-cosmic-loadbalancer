@@ -2,6 +2,35 @@
 
 Terraform module to create and manage a Cosmic load balancer.
 
+## Example
+
+```hcl
+module "loadbalancer" {
+  source     = "MissionCriticalCloud/loadbalancer/cosmic"
+  name       = "MyApp"
+  network_id = "4976b9bd-ba53..."
+  vpc_id     = "bcd11371-5cd9..."
+
+  services = {
+    http = {
+      allowed_cidrs = ["1.2.3.4/32"]
+      member_ids    = cosmic_instance.default.*.id
+      private_port  = 80
+      public_port   = 80
+      protocol      = "tcp"
+    }
+
+    https = {
+      allowed_cidrs = ["1.2.3.4/32"]
+      member_ids    = cosmic_instance.default.*.id
+      private_port  = 443
+      public_port   = 443
+      protocol      = "tcp"
+    }
+  }
+}
+```
+
 <!--- BEGIN_TF_DOCS --->
 ## Requirements
 
