@@ -2,14 +2,16 @@
 
 Terraform module to create and manage a Cosmic load balancer.
 
+This module will create a public IP address and configure it as a load balancer in the specified network. It will also create a network ACL for the public IP and add the public ports and allowed CIDRs as ingress ACL rules, ensuring all configured load balancer rules have a corresponding allow rule in the public IP's ACL.
+
 ## Example
 
 ```hcl
 module "loadbalancer" {
   source     = "MissionCriticalCloud/loadbalancer/cosmic"
   name       = "MyApp"
-  network_id = "4976b9bd-ba53..."
-  vpc_id     = "bcd11371-5cd9..."
+  network_id = cosmic_network.default.id
+  vpc_id     = cosmic_vpc.default.id
 
   services = {
     http = {
