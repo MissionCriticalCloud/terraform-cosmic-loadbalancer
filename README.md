@@ -59,6 +59,7 @@ module "loadbalancer" {
 
 | Name | Description |
 |------|-------------|
+| acl\_id | ACL ID |
 | ip\_address | IP address |
 
 <!--- END_TF_DOCS --->
